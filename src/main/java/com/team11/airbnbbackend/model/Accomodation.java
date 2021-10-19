@@ -33,8 +33,5 @@ public class Accomodation {
     @JoinColumn(name = "WISHLIST_ID", nullable = false)
     private WishList wishList;
 
-    public Accomodation(AccomodationRequestDto accomodationRequestDto, WishList wishList){
-        this.location = accomodationRequestDto.getLocation();
-    }
 
 }
