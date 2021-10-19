@@ -1,5 +1,6 @@
 package com.team11.airbnbbackend.service;
 
+import com.team11.airbnbbackend.dto.AccomodationRequestDto;
 import com.team11.airbnbbackend.dto.AccomodationResponseDto;
 import com.team11.airbnbbackend.dto.ResponseDto;
 import com.team11.airbnbbackend.model.Accomodation;
@@ -14,17 +15,39 @@ public class AccomodationService {
 
     private final AccomodationRepository accomodationRepository;
 
+
     public AccomodationService(AccomodationRepository accomodationRepository) {
         this.accomodationRepository = accomodationRepository;
     }
 
-    public List<AccomodationResponseDto> searchList(String location){
-        List<Accomodation> accomodations = accomodationRepository.findByLocation(location);
+    public List<AccomodationResponseDto> searchList(String location) {
+        List<Accomodation> accomodations = accomodationRepository.findAllByLocation(location);
         List<AccomodationResponseDto> accomodationResponseDtos = new ArrayList<>();
 
-        return new ResponseDto("success", "검색에 성공했습니다", "{id, roomName, cost, contents, location"})
+        for(Accomodation accomodation : accomodations){
+            AccomodationResponseDto accomodationResponseDto = new AccomodationResponseDto(
+                    accomodation.getId(),
+                    accomodation.getRoomName(),
+                    accomodation.getCost(),
+                    accomodation.getContents(),
+                    accomodation.getLocation()
+            );
+            accomodationResponseDtos.add(accomodationResponseDto);
+        }
+        return accomodationResponseDtos;
+    }
 
-
-
+    public AccomodationResponseDto readAccomodation(Long id) {
+        Accomodation accomodation = accomodationRepository.findById(id).orElseThrow(
+                ()-> new IllegalArgumentException("상세보기 페이지가 없습니다.")
+        );
+        AccomodationResponseDto accomodationResponseDto = new AccomodationResponseDto(
+                accomodation.getId(),
+                accomodation.getRoomName(),
+                accomodation.getCost(),
+                accomodation.getContents(),
+                accomodation.getLocation()
+        );
+        return accomodationResponseDto;
     }
 }
