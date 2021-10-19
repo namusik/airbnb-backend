@@ -1,5 +1,6 @@
 package com.team11.airbnbbackend.model;
 
+import com.team11.airbnbbackend.dto.WishListRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,8 +19,8 @@ public class WishList {
     @Id
     private Long id;
 
-    @Column(nullable = false)
-    private String listName;
+//    @Column(nullable = false)
+//    private String listName;
 
     @ManyToOne
     @JoinColumn(name = "USER_ID", nullable = false)
@@ -28,14 +29,7 @@ public class WishList {
     @OneToMany(mappedBy = "wishList")   //Accomodation(many쪽)이 OneToMany관계의 주인이 됨, wishList로 참조되고있다.
     private List<Accomodation> accomodationList = new ArrayList<>();
 
-    public WishList(String listName, User user) {
-        this.listName = listName;
-        this.user = user;
+    public WishList(WishListRequestDto requestDto, User user) {
     }
-
-//    public void add(Accomodation accomodation) {
-//        accomodation.setWishList(this);
-//        getAccomodationList().add(accomodation);
-//    }
 
 }
