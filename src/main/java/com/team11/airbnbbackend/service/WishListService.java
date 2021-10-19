@@ -68,4 +68,28 @@ public class WishListService {
         return new ResponseDto("success", "위시리스트를 불러왔습니다", accomodationList);
     }
 
+    // 로그인한 회원 위시리스트 삭제
+    @Transactional
+    public ResponseDto deleteWishLists(WishListRequestDto requestDto, UserDetailsImpl userDetails) {
+        //User 가져오기
+        Long id = userDetails.getUser().getId();
+        User user = userRepository.getById(id);
+
+        //숙소 객체 가져오기
+        Long accomodationId = requestDto.getId();
+        Accomodation accomodation = accomodationRepository.findById(accomodationId).orElseThrow(
+                () -> new CustomErrorException("해당 숙소가 없습니다")
+        );
+
+        //WishList 객체 가져오기
+        WishList wishList = wishListRepository.findByUserAndAccomodation(user, accomodation).orElseThrow(
+                () -> new IllegalArgumentException("위시리스트가 존재하지 않습니다"));
+
+        //WishList 객체 DB삭제
+        accomodation.getWishList().remove(wishList);
+        user.getMyWishList().remove(wishList);
+        wishListRepository.delete(wishList);
+
+        return new ResponseDto("success", "wishList에서 삭제되었습니다", "");
+    }
 }
