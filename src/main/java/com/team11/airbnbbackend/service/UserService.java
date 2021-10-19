@@ -3,6 +3,7 @@ package com.team11.airbnbbackend.service;
 import com.team11.airbnbbackend.dto.ResponseDto;
 import com.team11.airbnbbackend.dto.UserRequestDto;
 import com.team11.airbnbbackend.exception.CustomErrorException;
+import com.team11.airbnbbackend.model.Accomodation;
 import com.team11.airbnbbackend.model.User;
 import com.team11.airbnbbackend.model.UserRoleEnum;
 import com.team11.airbnbbackend.repository.UserRepository;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -75,5 +77,11 @@ public class UserService {
             throw new CustomErrorException("비밀번호가 맞지 않습니다.");
         }
         return user;
+    }
+
+    public User getUserInfo(Long id) {
+        return userRepository.findById(id).orElseThrow(
+                () -> new CustomErrorException("존재하지 않는 사용자입니다")
+        );
     }
 }
