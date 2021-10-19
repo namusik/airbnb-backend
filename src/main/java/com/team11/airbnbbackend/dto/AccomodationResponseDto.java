@@ -8,16 +8,16 @@ import lombok.NoArgsConstructor;
 public class AccomodationResponseDto {
     private Long id;
     private String roomName;
-    private String contents;
     private Long cost;
+    private String contents;
     private String location;
 
-    public AccomodationResponseDto(Long id, String roomName, String contents, Long cost, String location){
+    public AccomodationResponseDto(Long id, String roomName, Long cost, String contents, String location){
         this.id = id;
         this.roomName = roomName;
-        this.contents = contents;
         this.cost = cost;
-        this.location;
+        this.contents = contents;
+        this.location = location;
     }
 
 
