@@ -1,56 +1,31 @@
 package com.team11.airbnbbackend.model;
 
-<<<<<<< HEAD
-import com.team11.airbnbbackend.dto.WishListRequestDto;
-=======
->>>>>>> 627b19cbee78549ef3d88e7bdceecff98faab059
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
-@Setter
+
+@Entity
 @Getter
 @NoArgsConstructor
-@Entity
 public class WishList {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-<<<<<<< HEAD
-//    @Column(nullable = false)
-//    private String listName;
-=======
-    @Column(nullable = false)
-    private String listName;
->>>>>>> 627b19cbee78549ef3d88e7bdceecff98faab059
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "wishList")   //Accomodation(many쪽)이 OneToMany관계의 주인이 됨, wishList로 참조되고있다.
-    private List<Accomodation> accomodationList = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ACCOMODATION_ID", nullable = false)
+    private Accomodation accomodation;
 
-<<<<<<< HEAD
-    public WishList(WishListRequestDto requestDto, User user) {
-    }
-
-=======
-    public WishList(String listName, User user) {
-        this.listName = listName;
+    public WishList(User user, Accomodation accomodation) {
         this.user = user;
+        this.accomodation = accomodation;
     }
-
-//    public void add(Accomodation accomodation) {
-//        accomodation.setWishList(this);
-//        getAccomodationList().add(accomodation);
-//    }
-
->>>>>>> 627b19cbee78549ef3d88e7bdceecff98faab059
 }

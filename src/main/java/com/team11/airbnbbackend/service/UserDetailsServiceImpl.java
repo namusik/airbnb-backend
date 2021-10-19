@@ -20,9 +20,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     //로그인할 때 들어온 username으로 DB에서 정보 찾기
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Can't find " + username));
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Can't find " + email));
 
         return new UserDetailsImpl(user);
     }

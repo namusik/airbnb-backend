@@ -1,11 +1,12 @@
 package com.team11.airbnbbackend.model;
 
-import com.team11.airbnbbackend.dto.AccomodationRequestDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -29,9 +30,26 @@ public class Accomodation {
     @Column(nullable = false)
     private String location;
 
-    @ManyToOne
-    @JoinColumn(name = "WISHLIST_ID", nullable = false)
-    private WishList wishList;
+    @Column(nullable = false)
+    private String image;
 
+    //호스트 (숙소 등록한 사람)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ID", nullable = false)
+    private User user;
 
+    //wishList 매핑
+    @OneToMany(mappedBy = "accomodation")
+    @JsonIgnore
+    private List<WishList> wishList;
+    
+    //숙소 저장용 생성자
+    public Accomodation(String roomName, String contents, Long cost, String location, String image, User user) {
+        this.roomName = roomName;
+        this.contents = contents;
+        this.cost = cost;
+        this.location = location;
+        this.image = image;
+        this.user = user;
+    }
 }

@@ -19,21 +19,18 @@ public class WishListController {
     public WishListController(WishListService wishListService) {
         this.wishListService = wishListService;
     }
-
+    
+    //숙소 wishlist에 넣기
     @PostMapping("api/wishes")
     public ResponseDto addWishLists(@RequestBody WishListRequestDto requestDto,
-                                    @AuthenticationPrincipal UserDetailsImpl userDetails
-    ) {
-//        List<String> wishListNames = wishListRequestDto.getWishListNames();
-        User user = userDetails.getUser();
+                                    @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
-        return wishListService.addWishLists(requestDto, user);
+        return wishListService.addWishLists(requestDto, userDetails);
     }
-
+    
+    //로그인한 사용자의 wishlist불러오기
     @GetMapping("api/wishes")
-    public ResponseDto getWishLists(
-            @AuthenticationPrincipal UserDetailsImpl userDetails
-    ) {
+    public ResponseDto getWishLists(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         return wishListService.getWishLists(userDetails.getUser());
     }
 }
