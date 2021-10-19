@@ -1,5 +1,6 @@
 package com.team11.airbnbbackend.security.jwt;
 
+import com.team11.airbnbbackend.exception.CustomErrorException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,6 +33,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             // token이 인증된 상태를 유지하도록 context(맥락)을 유지해줌
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
+
         chain.doFilter(request, response);
     }
 }
