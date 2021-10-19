@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -42,8 +41,8 @@ public class WishListService {
 
     // 로그인한 회원이 등록된 모든 위시리스트 조회
     public ResponseDto getWishLists(User user) {
-        List<WishList> wishLists = wishListRepository.findAllByUser(user);
-        return new ResponseDto("success", "위시리스트를 불러왔습니다", wishLists);
+        wishListRepository.findAllByUser(user);
+        return new ResponseDto("success", "위시리스트를 불러왔습니다", "");
     }
 
 }
