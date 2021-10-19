@@ -20,11 +20,10 @@ public class WishListController {
         this.wishListService = wishListService;
     }
     
-    //숙소 wishlist에 넣기
+    //wishlist에 숙소 추가하기
     @PostMapping("api/wishes")
     public ResponseDto addWishLists(@RequestBody WishListRequestDto requestDto,
                                     @AuthenticationPrincipal UserDetailsImpl userDetails) {
-
         return wishListService.addWishLists(requestDto, userDetails);
     }
     
@@ -32,5 +31,12 @@ public class WishListController {
     @GetMapping("api/wishes")
     public ResponseDto getWishLists(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         return wishListService.getWishLists(userDetails.getUser());
+    }
+
+    //wishlist에서 숙소 삭제하기
+    @DeleteMapping("api/wishes")
+    public ResponseDto deleteWishLists(@RequestBody WishListRequestDto requestDto,
+                                       @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return wishListService.deleteWishLists(requestDto, userDetails);
     }
 }
