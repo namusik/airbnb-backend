@@ -72,6 +72,13 @@ public class AccomodationService {
                 () -> new CustomErrorException("존재하지 않는 사용자 입니다.")
         );
 
+        //동일한 이름의 숙소가 있는지 확인 후, 존재하면 에러 날림
+        accomodationRepository.findByRoomName(requestDto.getRoomName()).ifPresent(
+                m -> {
+                    throw new CustomErrorException("이미 등록된 이름의 숙소입니다");
+                }
+        );
+
         Accomodation accomodation = new Accomodation(requestDto.getRoomName(), requestDto.getContents(), requestDto.getCost(),
                 requestDto.getLocation(), requestDto.getImage(), user);
         
@@ -88,9 +95,11 @@ public class AccomodationService {
     @Transactional
     public void editAccomodation(AccomodationRequestDto requestDto) {
         Long id = requestDto.getId();
+        System.out.println("수정 id = " + id);
         Accomodation accomodation = accomodationRepository.findById(id).orElseThrow(
                 ()-> new CustomErrorException("해당 숙소가 없습니다")
         );
+        System.out.println("accomodation 수정 = " + accomodation);
         accomodation.updateAccomodation(requestDto);
     }
 

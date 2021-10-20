@@ -40,7 +40,7 @@ public class Accomodation {
     private User user;
 
     //wishList 매핑
-    @OneToMany(mappedBy = "accomodation")
+    @OneToMany(mappedBy = "accomodation", orphanRemoval = true)
     @JsonIgnore
     private List<WishList> wishList;
     
@@ -55,10 +55,10 @@ public class Accomodation {
     }
 
     public void updateAccomodation(AccomodationRequestDto requestDto){
-        this.roomName = roomName;
-        this.contents = contents;
-        this.cost = cost;
-        this.location = location;
-        this.image = image;
+        this.roomName = requestDto.getRoomName();
+        this.contents = requestDto.getContents();
+        this.cost = requestDto.getCost();
+        this.location = requestDto.getLocation();
+        this.image = requestDto.getImage();
     }
 }

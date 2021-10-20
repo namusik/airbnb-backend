@@ -44,8 +44,17 @@ public class WishListService {
                 () -> new CustomErrorException("해당 숙소가 없습니다")
         );
 
+
+        wishListRepository.findByUserAndAccomodation(user, accomodation).ifPresent(
+                m -> {
+                    throw new CustomErrorException("이미 위시리스트에 존재합니다");
+                }
+        );
+
+
         //WishList 객체 생성
         WishList wishList = new WishList(user, accomodation);
+
 
         //WishList 객체 DB저장
         accomodation.getWishList().add(wishList);
@@ -83,7 +92,7 @@ public class WishListService {
 
         //WishList 객체 가져오기
         WishList wishList = wishListRepository.findByUserAndAccomodation(user, accomodation).orElseThrow(
-                () -> new IllegalArgumentException("위시리스트가 존재하지 않습니다"));
+                () -> new CustomErrorException("위시리스트가 존재하지 않습니다"));
 
         //WishList 객체 DB삭제
         accomodation.getWishList().remove(wishList);

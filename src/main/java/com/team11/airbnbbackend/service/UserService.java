@@ -27,15 +27,15 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    //회원가입
+    //회원가입 로직
     public ResponseDto signup(UserRequestDto userRequestDto) {
-        String nickname = userRequestDto.getUsername();
+        String username = userRequestDto.getUsername();
 
         // 회원 ID 중복 확인
-        Optional<User> found = userRepository.findByUsername(nickname);
-        if (found.isPresent()) {
-            throw new CustomErrorException("중복된 유저네임이 존재합니다.");
-        }
+        userRepository.findByUsername(username).ifPresent(
+                m -> { throw new CustomErrorException("중복된 유저네임이 존재합니다.");
+                }
+        );
 
         //패스워드 암호화
         String password = passwordEncoder.encode(userRequestDto.getPassword());
@@ -55,8 +55,12 @@ public class UserService {
         Long birth = userRequestDto.getBirth();
 
         String email = userRequestDto.getEmail();
-
-        User user = new User(nickname, password, birth, email, role);
+        userRepository.findByEmail(email).ifPresent(
+                m -> { throw new CustomErrorException("중복된 이메일이 존재합니다.");
+                }
+        );
+        
+        User user = new User(username, password, birth, email, role);
 
         try {
             userRepository.save(user);
@@ -66,7 +70,8 @@ public class UserService {
 
         return new ResponseDto("success", "회원가입에 성공하였습니다", "");
     }
-
+    
+    //로그인 로직
     public User login(String email, String password) {
         User user = userRepository.findByEmail(email).orElseThrow(
                 () -> new CustomErrorException("이메일을 찾을 수 없습니다.")
@@ -78,7 +83,8 @@ public class UserService {
         }
         return user;
     }
-
+    
+    //회원정보 가져오기 로직
     public User getUserInfo(Long id) {
         return userRepository.findById(id).orElseThrow(
                 () -> new CustomErrorException("존재하지 않는 사용자입니다")

@@ -14,6 +14,4 @@ public class AccomodationRequestDto {
     private String contents;
     private String location;
     private String image;
-
-
 }
