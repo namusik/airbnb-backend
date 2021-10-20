@@ -1,6 +1,7 @@
 package com.team11.airbnbbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.team11.airbnbbackend.dto.AccomodationRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -51,5 +52,13 @@ public class Accomodation {
         this.location = location;
         this.image = image;
         this.user = user;
+    }
+
+    public void updateAccomodation(AccomodationRequestDto requestDto){
+        this.roomName = roomName;
+        this.contents = contents;
+        this.cost = cost;
+        this.location = location;
+        this.image = image;
     }
 }

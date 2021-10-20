@@ -3,17 +3,17 @@ package com.team11.airbnbbackend.controller;
 import com.team11.airbnbbackend.dto.AccomodationRequestDto;
 import com.team11.airbnbbackend.dto.AccomodationResponseDto;
 import com.team11.airbnbbackend.dto.ResponseDto;
+import com.team11.airbnbbackend.exception.CustomErrorException;
 import com.team11.airbnbbackend.model.Accomodation;
 import com.team11.airbnbbackend.model.User;
 import com.team11.airbnbbackend.security.UserDetailsImpl;
 import com.team11.airbnbbackend.service.AccomodationService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class AccomodationController {
@@ -48,5 +48,28 @@ public class AccomodationController {
         Accomodation accomodation = accomodationService.addAccomodation(accomodationRequestDto, userDetails);
 
         return new ResponseDto("success", "숙소 등록에 성공했습니다", accomodation);
+    }
+
+    //숙소 수정하기
+    @PutMapping("/api/rooms")
+    public ResponseDto editAccomodation(@RequestBody AccomodationRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        if(userDetails == null) {
+            throw new CustomErrorException("로그인이 필요합니다.");
+        }
+        accomodationService.editAccomodation(requestDto);
+        return  new ResponseDto("success", "숙소 정보가 수정되었습니다.", "");
+    }
+
+    //숙소 삭제하기
+    @DeleteMapping("/api/rooms")
+    public ResponseDto deleteAccomodation(@RequestBody HashMap<String, Long> map, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        Long id = map.get("id");
+
+        if(userDetails == null) {
+            throw new CustomErrorException("로그인이 필요합니다.");
+        }
+
+        accomodationService.deleteAccomodation(id);
+        return  new ResponseDto("success", "숙소 정보가 삭제되었습니다.", "");
     }
 }
