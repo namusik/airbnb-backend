@@ -43,7 +43,9 @@ public class AccomodationController {
     //숙소 등록하기
     @PostMapping("/api/rooms")
     public ResponseDto addAccomodation(@RequestBody AccomodationRequestDto accomodationRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        
+        if(userDetails == null) {
+            throw new CustomErrorException("로그인이 필요합니다.");
+        }
         //숙소 등록하기 로직
         Accomodation accomodation = accomodationService.addAccomodation(accomodationRequestDto, userDetails);
 
@@ -56,6 +58,7 @@ public class AccomodationController {
         if(userDetails == null) {
             throw new CustomErrorException("로그인이 필요합니다.");
         }
+
         accomodationService.editAccomodation(requestDto);
         return  new ResponseDto("success", "숙소 정보가 수정되었습니다.", "");
     }

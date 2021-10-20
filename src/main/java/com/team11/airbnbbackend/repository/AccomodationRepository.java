@@ -10,4 +10,6 @@ public interface AccomodationRepository extends JpaRepository<Accomodation, Stri
     List<Accomodation> findAllByLocation(String location);
 
     Optional<Accomodation> findById(Long id);
+
+    Optional<Accomodation> findByRoomName(String roomName);
 }
