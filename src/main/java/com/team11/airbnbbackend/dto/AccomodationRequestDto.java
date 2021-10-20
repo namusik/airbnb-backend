@@ -8,9 +8,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccomodationRequestDto {
+    private Long id;
     private String roomName;
     private Long cost;
     private String contents;
     private String location;
     private String image;
+
+
 }
