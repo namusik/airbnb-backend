@@ -25,9 +25,9 @@ public class AccomodationController {
     }
 
     //검색하기
-    @PostMapping("/api/searches")
-    public ResponseDto searchList(@RequestBody HashMap<String, String> map){
-        String location = map.get("location");
+    @GetMapping("/api/searches")
+    public ResponseDto searchList(@RequestParam("location") String location){
+
         List<AccomodationResponseDto> accomoList = accomodationService.searchList(location);
         return new ResponseDto("success", "검색에 성공했습니다.", accomoList);
     }

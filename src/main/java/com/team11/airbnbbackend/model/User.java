@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -22,10 +23,11 @@ public class User extends Timestamped{
     private String username;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
 
     @Column(nullable = false)
-    private Long birth;
+    private LocalDate birth;
 
     @Column(nullable = false)
     private String email;
@@ -44,7 +46,7 @@ public class User extends Timestamped{
     @JsonIgnore
     private List<WishList> myWishList;
 
-    public User(String username, String password, Long birth, String email, UserRoleEnum role) {
+    public User(String username, String password, LocalDate birth, String email, UserRoleEnum role) {
         this.username = username;
         this.password = password;
         this.birth = birth;
