@@ -7,10 +7,12 @@ import com.team11.airbnbbackend.model.Accomodation;
 import com.team11.airbnbbackend.model.User;
 import com.team11.airbnbbackend.model.UserRoleEnum;
 import com.team11.airbnbbackend.repository.UserRepository;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,8 +53,7 @@ public class UserService {
             //role을 admin으로 바꿔준다
             role = UserRoleEnum.ADMIN;
         }
-
-        Long birth = userRequestDto.getBirth();
+        LocalDate birth = userRequestDto.getBirth();
 
         String email = userRequestDto.getEmail();
         userRepository.findByEmail(email).ifPresent(

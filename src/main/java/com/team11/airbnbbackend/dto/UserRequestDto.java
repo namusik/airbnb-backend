@@ -3,6 +3,7 @@ package com.team11.airbnbbackend.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor
@@ -10,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class UserRequestDto {
     private String username;
     private String password;
-    private Long birth;
+    private LocalDate birth;
     private String email;
     private boolean admin = false;
     private String adminToken = "";
