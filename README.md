@@ -26,10 +26,6 @@ Frontend (React)
 
 https://foregoing-ursinia-218.notion.site/6-a58fc78b1fb44f15a797c19f3ee83e2d
 
-## Github organization
-
-https://github.com/hanghae11
-
 ## Backend Tech Spec
 
 - Spring Boot
