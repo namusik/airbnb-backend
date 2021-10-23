@@ -12,7 +12,7 @@ Airbnb clone coding
 
 Backend (Spring)
 
-- 남우식, 이다담, 김가민
+- 김가민, 남우식, 이다담
 
 Frontend (React)
 
