@@ -1,4 +1,3 @@
-# airbnb-backend
 # 항해99 clone coding frontend
 
 Airbnb clone coding
