@@ -1,4 +1,4 @@
-# 항해99 clone coding frontend
+# 항해99 clone coding BACKEND
 
 Airbnb clone coding
 
@@ -10,13 +10,13 @@ Airbnb clone coding
 
 ## 팀원
 
-Frontend (React)
-
-- 배재경, 박시영, 류은설
-
 Backend (Spring)
 
 - 남우식, 이다담, 김가민
+
+Frontend (React)
+
+- 배재경, 박시영, 류은설
 
 ## 프로젝트 기간
 
