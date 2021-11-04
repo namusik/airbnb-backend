@@ -34,7 +34,7 @@ public class UserController {
 
     @GetMapping("/hello")
     public String hello() {
-        return "verson2";
+        return "verson1";
     }
 
 
