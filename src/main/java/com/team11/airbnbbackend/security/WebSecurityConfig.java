@@ -60,6 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/profile").permitAll()
                 .antMatchers("/actuator/**").permitAll()
                 .antMatchers("/health").permitAll()
+                .antMatchers("/hello").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
