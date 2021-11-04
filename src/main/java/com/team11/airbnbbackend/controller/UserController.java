@@ -32,6 +32,12 @@ public class UserController {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
+    @GetMapping("/hello")
+    public String hello() {
+        return "verson1";
+    }
+
+
     //회원가입
     @PostMapping("/api/users")
     @ApiOperation(value = "회원가입 API", notes = "회원가입form에서 정보를 받아 DB에 저장합니다")
