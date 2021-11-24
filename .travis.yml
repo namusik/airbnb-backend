@@ -39,7 +39,7 @@ deploy:
   env: "Airbnb-env"
   bucket_name: "elasticbeanstalk-ap-northeast-2-382240023058"  # S3 bucket name
   on:
-    branch: master
+    branch: main
 
 after_deploy:
   - echo "Elastic Beanstalk 배포 진행중입니다."
